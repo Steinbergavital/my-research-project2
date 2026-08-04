@@ -4,7 +4,18 @@ import requests
 
 def query_Ensembl(variant_list, server, ext, headers):
     # Query Ensemble using a variant list and get the response.
-    response = requests.post(server + ext, headers=headers, json={"variants": variant_list})
+    optional_params = {
+    "AlphaMissense": 1,
+    "Blosum62": 1,
+    "CADD": 1,
+    "EVE": 1,
+    "uniprot": 1,
+    "pick": 1,
+    "domains": 1,
+    "Transcript": 1,
+    "dbNSFP": "ESM1b, GERP++, GERP_92_mammals, bStatistic in CADDv1.7"
+}
+    response = requests.post(server + ext, params=optional_params,headers=headers, json={"variants": variant_list})
     if not response.ok:
         response.raise_for_status()
         sys.exit("Err1")
