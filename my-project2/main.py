@@ -15,7 +15,7 @@ def query_Ensembl(variant_list, server, ext, headers):
     "pick": 1,
     "domains": 1,
     "Transcript": 1,
-    "dbNSFP": "ESM1b, GERP++, GERP_92_mammals, bStatistic in CADDv1.7"
+    "dbNSFP": "ESM1b_score, GERP++, GERP_92_mammals, bStatistic in CADDv1.7"
 }
     response = requests.post(server + ext, params=optional_params,headers=headers, json={"variants": variant_list})
     if not response.ok:
@@ -31,6 +31,14 @@ def query_Ensembl(variant_list, server, ext, headers):
     print("alpha_dict  keys:", alpha_dict.keys())
     print("%%%%%%%")
     print("most_severe_consequence:", variant["most_severe_consequence"])
+    domains = transcript_cons_dict.get("domains")
+
+    has_match = any(d.get('name') in ('transmembrane', 'TMHMM') for d in domains)
+    bool_in_transmem = False
+    if has_match:
+        bool_in_transmem = True
+    else:
+        bool_in_transmem = False
 
     filtered_data = {
     "most_severe_consequence": variant["most_severe_consequence"],
@@ -39,27 +47,27 @@ def query_Ensembl(variant_list, server, ext, headers):
     "gene_id": transcript_cons_dict.get("gene_id"),
     "popeve_pop_adjusted_esm1v": transcript_cons_dict.get("popeve_pop_adjusted_esm1v"),
     "sift_prediction": transcript_cons_dict.get("sift_prediction"),
-    "gerp_92_mammals": transcript_cons_dict.get("gerp_92_mammals"),
-    "bstatistic in caddv1.7": transcript_cons_dict.get("bstatistic in caddv1.7"),
+    "gerp_92_mammals": transcript_cons_dict.get("GERP_92_mammals"),
+    "bstatistic in caddv1.7": transcript_cons_dict.get("bStatistic in CADDv1.7"),
     "cadd_phred": transcript_cons_dict.get("cadd_phred"),
     "popeve_esm1v": transcript_cons_dict.get("popeve_esm1v"),
     "eve_score": transcript_cons_dict.get("eve_score"),
     "blosum62": transcript_cons_dict.get("blosum62"),
     "polyphen_prediction": transcript_cons_dict.get("polyphen_prediction"),
-    "gerp++": transcript_cons_dict.get("gerp++"),
+    "gerp++": transcript_cons_dict.get("GERP++"),
     "eve_class": transcript_cons_dict.get("eve_class"),
     "gene_symbol": transcript_cons_dict.get("gene_symbol"),
-    "esm1b": transcript_cons_dict.get("esm1b"),
+    "ESM1b_score": transcript_cons_dict.get("ESM1b_score"),
     "sift_score": transcript_cons_dict.get("sift_score"),
     "transcript_id": transcript_cons_dict.get("transcript_id"),
     "gene_symbol_source": transcript_cons_dict.get("gene_symbol_source"),
-    "uniprot_isoform": transcript_cons_dict.get("uniprot_isoform"),
+    "uniprot_isoform_list": transcript_cons_dict.get("uniprot_isoform"),
     "polyphen_score": transcript_cons_dict.get("polyphen_score"),
-    "domains": transcript_cons_dict.get("domains"),
+    "booldomains": bool_in_transmem ,
     "impact": transcript_cons_dict.get("impact"),
-    "swissprot": transcript_cons_dict.get("swissprot"),
+    "swissprot_list": transcript_cons_dict.get("swissprot"),
     "trembl": transcript_cons_dict.get("trembl"),
-    "uniparc": transcript_cons_dict.get("uniparc"),
+    "uniparc_list": transcript_cons_dict.get("uniparc"),
     "cadd_raw": transcript_cons_dict.get("cadd_raw"),
     "popeve_pop_adjusted_eve": transcript_cons_dict.get("popeve_pop_adjusted_eve"),
 }
