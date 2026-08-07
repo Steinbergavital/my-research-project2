@@ -1,6 +1,7 @@
 from os import name
 import sys
 import csv
+import pandas as pd
 import requests
 import json
 
@@ -74,7 +75,9 @@ def query_Ensembl(variant_list, server, ext, headers):
 
     print("&&&&&&&&")
     print("Filtered Data:", json.dumps(filtered_data, indent=4))
-    return decoded
+    df = pd.DataFrame(data=[filtered_data.values()], columns=filtered_data.keys())
+    print(df)
+    return df
 
 def filter_result(results, target_consequences, output_csv):
     # Filter the requests result by missense_variant, etc.
