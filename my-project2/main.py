@@ -23,69 +23,6 @@ def query_Ensembl(variant_list, server, ext, headers):
         response.raise_for_status()
         sys.exit("Err1")
     decoded = response.json()
-
-    
-    '''
-
-    variant_index = 0
-    vcf = variant_list[variant_index]
-    variant = decoded[variant_index]
-    transcript_cons_dict = variant.get("transcript_consequences", [{}])[0]
-    alpha_dict = transcript_cons_dict.get("alphamissense", {})
-
-
-    print("variant  keys:", variant.keys())
-    print("transcript_cons_dict  keys:", transcript_cons_dict.keys())
-    print("alpha_dict  keys:", alpha_dict.keys())
-    print("%%%%%%%")
-    print("most_severe_consequence:", variant["most_severe_consequence"])
-    domains = transcript_cons_dict.get("domains")
-
-    has_match = any(d.get('name') in ('transmembrane', 'TMHMM') for d in domains)
-    bool_in_transmem = False
-    if has_match:
-        bool_in_transmem = True
-    else:
-        bool_in_transmem = False
-
-    filtered_data = {
-    "vcf": vcf,
-    "most_severe_consequence": variant["most_severe_consequence"],
-    "AlphaMissense_patho": alpha_dict.get("am_pathogenicity"),
-    "AlphaMissense_class": alpha_dict.get("am_class"),
-    "gene_id": transcript_cons_dict.get("gene_id"),
-    "popeve_pop_adjusted_esm1v": transcript_cons_dict.get("popeve_pop_adjusted_esm1v"),
-    "sift_prediction": transcript_cons_dict.get("sift_prediction"),
-    "gerp_92_mammals": transcript_cons_dict.get("GERP_92_mammals"),
-    "bstatistic in caddv1.7": transcript_cons_dict.get("bStatistic in CADDv1.7"),
-    "cadd_phred": transcript_cons_dict.get("cadd_phred"),
-    "popeve_esm1v": transcript_cons_dict.get("popeve_esm1v"),
-    "eve_score": transcript_cons_dict.get("eve_score"),
-    "blosum62": transcript_cons_dict.get("blosum62"),
-    "polyphen_prediction": transcript_cons_dict.get("polyphen_prediction"),
-    "gerp++": transcript_cons_dict.get("GERP++"),
-    "eve_class": transcript_cons_dict.get("eve_class"),
-    "gene_symbol": transcript_cons_dict.get("gene_symbol"),
-    "ESM1b_score": transcript_cons_dict.get("ESM1b_score"),
-    "sift_score": transcript_cons_dict.get("sift_score"),
-    "transcript_id": transcript_cons_dict.get("transcript_id"),
-    "gene_symbol_source": transcript_cons_dict.get("gene_symbol_source"),
-    "uniprot_isoform_list": transcript_cons_dict.get("uniprot_isoform"),
-    "polyphen_score": transcript_cons_dict.get("polyphen_score"),
-    "booldomains": bool_in_transmem ,
-    "impact": transcript_cons_dict.get("impact"),
-    "swissprot_list": transcript_cons_dict.get("swissprot"),
-    "trembl": transcript_cons_dict.get("trembl"),
-    "uniparc_list": transcript_cons_dict.get("uniparc"),
-    "cadd_raw": transcript_cons_dict.get("cadd_raw"),
-    "popeve_pop_adjusted_eve": transcript_cons_dict.get("popeve_pop_adjusted_eve"),
-}
-
-    print("&&&&&&&&")
-    print("Filtered Data:", json.dumps(filtered_data, indent=4))
-    df = pd.DataFrame(data=[filtered_data.values()], columns=filtered_data.keys())
-    print(df)
-    '''
     return decoded
 
 def filter_result(decoded, variant_list):
