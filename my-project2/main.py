@@ -61,7 +61,6 @@ def filter_result(decoded, variant_list):
             "uniprot_isoform_list": transcript_cons_dict.get("uniprot_isoform"),
             "polyphen_score": transcript_cons_dict.get("polyphen_score"),
             "booldomains": has_match,
-            "impact": transcript_cons_dict.get("impact"),
             "swissprot_list": transcript_cons_dict.get("swissprot"),
             "trembl": transcript_cons_dict.get("trembl"),
             "uniparc_list": transcript_cons_dict.get("uniparc"),
@@ -89,7 +88,7 @@ def main():
 
     decoded_res = query_Ensembl(variant_list, server, ext, headers)
     filtered_res = filter_result(decoded_res, variant_list)
-    print(filtered_res)
+    print(filtered_res['impact'])
 
 
 
