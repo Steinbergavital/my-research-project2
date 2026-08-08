@@ -1,4 +1,4 @@
-### Phase 1 - Querying the ENSEMBL REST API:
+### Issue 1 - Querying the ENSEMBL REST API:
 https://rest.ensembl.org/documentation/info/vep_region_post
 The script main.py, which is inside the my-project2 directory and the tracked repository my-research-project directory takes 2 VCF variant lines, (based on the CSV file)
 It downloads features and labels from ENSEMBL's REST API and saves them in a Pandas dataframe. 
