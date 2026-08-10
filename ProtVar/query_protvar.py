@@ -8,15 +8,11 @@ import json
 
 def query_protvar(variant_list):
     # Query ProtVar using a variant list and get the response.
-    response = mcp__protvar__mapVariants(variants=variant_list)
-    if not response.ok:
-        print(response.status_code)
-        print(response.text)   # important for ProtVar validation error message
-    response.raise_for_status()
-    decoded = response.json()
-    print(decoded)
+    result = mcp__protvar__mapVariants(variants=variant_list)
+    #decoded = response.json()
+    print(result)
     sys.exit()
-    return decoded
+    return result
 
 def filter_result(decoded, variant_list):
     rows = []
