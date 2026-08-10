@@ -56,8 +56,8 @@ def filter_result(decoded, variant_list):
             "gene_symbol_source": transcript_cons_dict.get("gene_symbol_source"),
             "uniprot_isoform_list": transcript_cons_dict.get("uniprot_isoform"),
             "polyphen_score": transcript_cons_dict.get("polyphen_score"),
-            "swissprot_list": transcript_cons_dict.get("swissprot"),
-            "trembl": transcript_cons_dict.get("trembl"),
+            "swissprotID": transcript_cons_dict.get("swissprot")[0] if transcript_cons_dict.get("swissprot") else None,
+            "trembl_list": transcript_cons_dict.get("trembl"),
             "uniparc_list": transcript_cons_dict.get("uniparc"),
             "cadd_raw": transcript_cons_dict.get("cadd_raw"),
             "popeve_pop_adjusted_eve": transcript_cons_dict.get("popeve_pop_adjusted_eve"),
@@ -83,7 +83,7 @@ def main():
 
     decoded_res = query_Ensembl(variant_list, server, ext, headers)
     filtered_res = filter_result(decoded_res, variant_list)
-    print(filtered_res['most_severe_consequence'])
+    print(filtered_res['uniparc_list'])
 
 
 

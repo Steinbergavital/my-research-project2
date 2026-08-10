@@ -28,7 +28,7 @@ Cd into the tracked directory. Then run: uv run my-project2/main.py.
 **gene_symbol_source** - Specifies which database the gene symbol came from.
 **uniprot_isoform_list** - Include best match accessions for translated protein products from the UniProt-related database UniParc.
 **polyphen_score**: 0.0-1.0 pathogenicity scores where 0 means benign and 1 means pathogenic.
-**swissprot_list** - Include best match accessions for translated protein products from the UniProt-related database Swiss-Prot.
+**swissprotID** - This is the UniprotID - includes best match accessions for translated protein products from the UniProt-related database Swiss-Prot.
 **trembl** - Include best match accessions for translated protein products from the UniProt-related database TrEMBL.
 **cadd_raw**: The range is from negative to positive values, where negative values mean more benign values while positive values mean more deleterious.
 **popeve_pop_adjusted_eve**: This is a log likelihood range in which < -5.056 is likely disease causing and near zero is likely benign.
