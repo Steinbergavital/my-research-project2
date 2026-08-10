@@ -83,7 +83,8 @@ def main():
 
     decoded_res = query_Ensembl(variant_list, server, ext, headers)
     filtered_res = filter_result(decoded_res, variant_list)
-    print(filtered_res['uniparc_list'])
+    # I manually changed the meaningless digit ID values into the Uniprot IDs obtained from ENSEMBL (swissprot), in order to use it as input for the ProtVar queries,
+    corr_variant_list = ["1 1341803 O14640.229 C  T . . .","1 6130220 Q8TDI0.193 G  A . . ."]
 
 
 
