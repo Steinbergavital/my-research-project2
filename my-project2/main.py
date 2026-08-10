@@ -32,10 +32,6 @@ def filter_result(decoded, variant_list):
         vcf = variant_list[variant_index]
         transcript_cons_dict = variant.get("transcript_consequences", [{}])[0]
         alpha_dict = transcript_cons_dict.get("alphamissense", {})
-        domains = transcript_cons_dict.get("domains", [])
-
-        has_match = any(d.get("name") in ("transmembrane", "TMHMM") for d in domains)
-
         row = {
             "vcf": vcf,
             "most_severe_consequence": variant.get("most_severe_consequence"),
@@ -60,7 +56,6 @@ def filter_result(decoded, variant_list):
             "gene_symbol_source": transcript_cons_dict.get("gene_symbol_source"),
             "uniprot_isoform_list": transcript_cons_dict.get("uniprot_isoform"),
             "polyphen_score": transcript_cons_dict.get("polyphen_score"),
-            "booldomains": has_match,
             "swissprot_list": transcript_cons_dict.get("swissprot"),
             "trembl": transcript_cons_dict.get("trembl"),
             "uniparc_list": transcript_cons_dict.get("uniparc"),
@@ -88,7 +83,7 @@ def main():
 
     decoded_res = query_Ensembl(variant_list, server, ext, headers)
     filtered_res = filter_result(decoded_res, variant_list)
-    print(filtered_res['impact'])
+    print(filtered_res['most_severe_consequence'])
 
 
 
