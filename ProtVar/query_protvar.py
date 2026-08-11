@@ -72,6 +72,7 @@ def main():
     annotated = asyncio.run(query_protvar(variant_list))
     df = filter_result(annotated)
     print(df)
+    df.to_csv("ProtVar/protvar_results.csv", index=False)
 
 
 if __name__ == "__main__":
