@@ -50,6 +50,9 @@ def filter_result(annotated):
         foldxs = function.get("foldxs") or []
         foldx = foldxs[0] if foldxs else {}
         am_score = isoform.get("amScore") or {}
+        conserv_score = function.get("conservScore") or {}
+        eve_score = function.get("eveScore") or {}
+        pop_eve_score = function.get("popEveScore") or {}
 
         rows.append({
             "vcf": entry["vcf"],
@@ -63,6 +66,10 @@ def filter_result(annotated):
             "m3dDamagingFeature": m3d.get("damagingFeature"),
             "foldxDdg": foldx.get("foldxDdg"),
             "plddt": foldx.get("plddt"),
+            "conservScore": conserv_score.get("score"),
+            "eveScore": eve_score.get("score"),
+            "eveClass": eve_score.get("eveClass"),
+            "popEve": pop_eve_score.get("popeve"),
         })
     return pd.DataFrame.from_records(rows)
 

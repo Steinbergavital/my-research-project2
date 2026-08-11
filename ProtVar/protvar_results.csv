@@ -1,3 +1,3 @@
-vcf,accession,position,aminoAcidChange,consequence,amPathogenicity,amClass,m3dPrediction,m3dDamagingFeature,foldxDdg,plddt
-1 1341803 . C T,O14640,157,Ala/Thr,missense,0.0662,BENIGN,,,,
-1 6130220 . G A,Q8TDI0,1124,Pro/Leu,missense,0.9868,PATHOGENIC,Neutral,-,3.51198,81.74
+vcf,accession,position,aminoAcidChange,consequence,amPathogenicity,amClass,m3dPrediction,m3dDamagingFeature,foldxDdg,plddt,conservScore,eveScore,eveClass,popEve
+1 1341803 . C T,O14640,157,Ala/Thr,missense,0.0662,BENIGN,,,,,0.403,0.096,BENIGN,-2.376
+1 6130220 . G A,Q8TDI0,1124,Pro/Leu,missense,0.9868,PATHOGENIC,Neutral,-,3.51198,81.74,1.0,,,-4.76
