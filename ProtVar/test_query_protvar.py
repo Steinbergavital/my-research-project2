@@ -2,7 +2,7 @@ import csv
 import os
 import tempfile
 
-from query_protvar import load_variants_from_csv
+from query_protvar import load_variants_from_csv, filter_result
 
 
 def test_load_variants_from_csv_builds_vcf_strings():
@@ -35,7 +35,23 @@ def test_load_variants_from_csv_matches_real_benchmark_file():
     assert result[-1] == "1 27547624 189 C T"
 
 
+def test_filter_result_includes_seqnum():
+    annotated = [
+        {
+            "vcf": "1 1341803 3 C T",
+            "isoform": {"accession": "P12345", "isoformPosition": 10},
+            "function": {},
+        }
+    ]
+
+    df = filter_result(annotated)
+
+    assert df.loc[0, "seqNum"] == "3"
+    assert df.loc[0, "accession"] == "P12345"
+
+
 if __name__ == "__main__":
     test_load_variants_from_csv_builds_vcf_strings()
     test_load_variants_from_csv_matches_real_benchmark_file()
+    test_filter_result_includes_seqnum()
     print("All tests passed.")
