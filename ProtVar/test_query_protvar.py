@@ -36,9 +36,25 @@ def test_load_variants_from_csv_matches_real_benchmark_file():
 
 
 def test_filter_result_includes_seqnum():
+    rows = [
+        {"chr": "1", "pos": "1341803", "ref": "C", "alt": "T", "seqNum": "3"},
+    ]
+    with tempfile.NamedTemporaryFile(
+        mode="w", suffix=".csv", delete=False, newline=""
+    ) as f:
+        writer = csv.DictWriter(f, fieldnames=["chr", "pos", "ref", "alt", "seqNum"])
+        writer.writeheader()
+        writer.writerows(rows)
+        tmp_path = f.name
+
+    try:
+        vcf_strings = load_variants_from_csv(tmp_path)
+    finally:
+        os.remove(tmp_path)
+
     annotated = [
         {
-            "vcf": "1 1341803 3 C T",
+            "vcf": vcf_strings[0],
             "isoform": {"accession": "P12345", "isoformPosition": 10},
             "function": {},
         }
@@ -46,7 +62,7 @@ def test_filter_result_includes_seqnum():
 
     df = filter_result(annotated)
 
-    assert df.loc[0, "seqNum"] == "3"
+    assert df.loc[0, "seqNum"] == 3
     assert df.loc[0, "accession"] == "P12345"
 
 

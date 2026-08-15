@@ -66,7 +66,7 @@ def filter_result(annotated):
 
         rows.append({
             "vcf": entry["vcf"],
-            "seqNum": entry["vcf"].split()[2],
+            "seqNum": int(entry["vcf"].split()[2]),
             "accession": isoform["accession"],
             "position": isoform["isoformPosition"],
             "aminoAcidChange": isoform.get("aminoAcidChange"),
