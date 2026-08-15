@@ -14,6 +14,16 @@ async def _call_tool(client, name, arguments):
     return json.loads(result.content[0].text)
 
 
+def load_variants_from_csv(csv_path):
+    """Load a benchmark CSV (columns: chr,pos,ref,alt,seqNum) and return it
+    as VCF-style strings in the format query_protvar() expects."""
+    df = pd.read_csv(csv_path)
+    return [
+        f"{row.chr} {row.pos} {row.seqNum} {row.ref} {row.alt}"
+        for row in df.itertuples()
+    ]
+
+
 async def query_protvar(variant_list):
     """Map variants via ProtVar's mapVariants tool, then fetch M3DPred/Foldx
     predictions for each canonical isoform via getFunction."""
