@@ -86,11 +86,11 @@ def filter_result(annotated):
 
 
 def main():
-    variant_list = ["1 1341803 . C T", "1 6130220 . G A"]
+    variant_list = load_variants_from_csv("ProtVar/subset_input_benchmark.csv")
     annotated = asyncio.run(query_protvar(variant_list))
     df = filter_result(annotated)
     print(df)
-    df.to_csv("ProtVar/protvar_results.csv", index=False)
+    df.to_csv("ProtVar/subset_benchmark_results.csv", index=False)
 
 
 if __name__ == "__main__":
