@@ -2,7 +2,7 @@ import csv
 import os
 import tempfile
 
-from query_protvar import load_variants_from_csv, filter_result
+from query_protvar import load_variants_from_csv, filter_result, _chunk_list
 
 
 def test_load_variants_from_csv_builds_vcf_strings():
@@ -66,8 +66,14 @@ def test_filter_result_includes_seqnum():
     assert df.loc[0, "accession"] == "P12345"
 
 
+def test_chunk_list_splits_into_groups():
+    result = list(_chunk_list([1, 2, 3, 4, 5, 6, 7], 3))
+    assert result == [[1, 2, 3], [4, 5, 6], [7]]
+
+
 if __name__ == "__main__":
     test_load_variants_from_csv_builds_vcf_strings()
     test_load_variants_from_csv_matches_real_benchmark_file()
     test_filter_result_includes_seqnum()
+    test_chunk_list_splits_into_groups()
     print("All tests passed.")

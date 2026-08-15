@@ -6,6 +6,16 @@ from mcp.client import Client
 
 PROTVAR_MCP_URL = "https://www.ebi.ac.uk/ProtVar/mcp"
 
+# ProtVar's mapVariants MCP tool silently truncates its response to the
+# first 25 input variants per call, regardless of how many are sent —
+# confirmed empirically (10/25/26/30/50-variant probes all returned <=25).
+MAPVARIANTS_BATCH_SIZE = 25
+
+
+def _chunk_list(items, size):
+    for i in range(0, len(items), size):
+        yield items[i:i + size]
+
 
 async def _call_tool(client, name, arguments):
     result = await client.call_tool(name, arguments)
@@ -28,10 +38,13 @@ async def query_protvar(variant_list):
     """Map variants via ProtVar's mapVariants tool, then fetch M3DPred/Foldx
     predictions for each canonical isoform via getFunction."""
     async with Client(PROTVAR_MCP_URL) as client:
-        mapping = await _call_tool(client, "mapVariants", {"variants": "\n".join(variant_list)})
+        inputs = []
+        for chunk in _chunk_list(variant_list, MAPVARIANTS_BATCH_SIZE):
+            mapping = await _call_tool(client, "mapVariants", {"variants": "\n".join(chunk)})
+            inputs.extend(mapping["content"]["inputs"])
 
         annotated = []
-        for variant_input in mapping["content"]["inputs"]:
+        for variant_input in inputs:
             vcf = variant_input["inputStr"]
             for genomic_variant in variant_input.get("derivedGenomicVariants", []):
                 for gene in genomic_variant.get("genes", []):
