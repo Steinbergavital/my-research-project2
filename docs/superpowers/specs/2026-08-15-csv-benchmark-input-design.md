@@ -10,7 +10,7 @@ variant_list = ["1 1341803 . C T", "1 6130220 . G A"]
 ```
 
 A benchmark dataset now exists as `ProtVar/subset_input_benchmark.csv` with
-columns `chr,pos,ref,alt,seqNum` (188 variant rows). `seqNum` plays the role
+columns `chr,pos,ref,alt,seqNum` (189 variant rows). `seqNum` plays the role
 of the VCF ID field (`.` in the hand-written examples), giving each row a
 stable numeric identifier. We want `query_protvar.py` to run against this
 CSV instead of the hardcoded list, and to be able to trace each result row
@@ -57,5 +57,5 @@ untouched; benchmark runs write to their own file,
 
 - CLI argument for an arbitrary CSV path (not requested; `main()` points
   directly at the benchmark CSV).
-- Batching/parallelizing the 188 MCP calls — synchronous sequential calls
+- Batching/parallelizing the 189 MCP calls — synchronous sequential calls
   are acceptable at this volume.
